@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import sdk from "@farcaster/frame-sdk";
-import { WalletActions } from "./WalletActions.tsx"; // 따로 컴포넌트 분리해도 좋음
+import { WalletActions } from "./WalletActions";
+import { WalletStatus } from "./components/WalletStatus";
 
 export default function App() {
   const { isConnected } = useAccount();
@@ -47,6 +48,11 @@ export default function App() {
         ) : (
           <p>Loading Farcaster context...</p>
         )}
+      </section>
+
+      <section style={{ marginBottom: "2rem" }}>
+        <h2>👛 Wallet Status</h2>
+        <WalletStatus />
       </section>
 
       {isConnected && <WalletActions />}

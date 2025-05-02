@@ -1,7 +1,7 @@
 // src/WalletActions.tsx
 import React from "react";
 import { parseEther } from "viem";
-import { monadTestnet } from "viem/chains";
+import { monadTestnet } from "@wagmi/core/chains";
 import {
   useAccount,
   useDisconnect,
