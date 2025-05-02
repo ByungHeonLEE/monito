@@ -1,12 +1,11 @@
 // src/App.tsx
-import React from "react";
-import { useEffect, useState } from "react";
-import { useAccount, useConnect } from "wagmi";
+import React, { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 import sdk from "@farcaster/frame-sdk";
+import { WalletActions } from "./WalletActions.tsx"; // 따로 컴포넌트 분리해도 좋음
 
 export default function App() {
-  const { isConnected, address } = useAccount();
-  const { connect, connectors } = useConnect();
+  const { isConnected } = useAccount();
 
   const [fid, setFid] = useState<number | null>(null);
   const [username, setUsername] = useState<string | null>(null);
@@ -19,7 +18,7 @@ export default function App() {
         const context = await sdk.context;
         if (context?.user) {
           setFid(context.user.fid);
-          context.user.username && setUsername(context.user.username);
+          setUsername(context.user.username ?? null);
         }
       } catch (err) {
         console.warn("Farcaster SDK error:", err);
@@ -30,26 +29,11 @@ export default function App() {
     init();
   }, []);
 
-  const handleConnect = () => {
-    const connector = connectors.find((c) => c.id === "metaMask");
-    if (!connector) return alert("MetaMask connector not available");
-    connect({ connector });
-  };
-
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>🧪 Monad MiniApp</h1>
+      <h1>🌐 Monad MiniApp</h1>
 
       <section style={{ marginBottom: "2rem" }}>
-        <h2>👛 Wallet</h2>
-        {isConnected ? (
-          <div>Connected address: {address}</div>
-        ) : (
-          <button onClick={handleConnect}>Connect MetaMask</button>
-        )}
-      </section>
-
-      <section>
         <h2>📡 Farcaster Frame Info</h2>
         {contextReady ? (
           fid ? (
@@ -64,6 +48,8 @@ export default function App() {
           <p>Loading Farcaster context...</p>
         )}
       </section>
+
+      {isConnected && <WalletActions />}
     </div>
   );
 }
