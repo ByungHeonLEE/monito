@@ -1,27 +1,31 @@
 {
   "name": "monito",
-  "version": "0.1.0",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "biome check src",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.1"
+    "@farcaster/frame-sdk": "latest",
+    "@farcaster/frame-wagmi-connector": "latest",
+    "@tanstack/react-query": "5.45.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "viem": "latest",
+    "wagmi": "latest"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.1",
-    "@eslint/eslintrc": "^3"
+    "@biomejs/biome": "^1.8.0",
+    "@types/node": "^22.15.3",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@wagmi/cli": "latest",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
   }
 }
